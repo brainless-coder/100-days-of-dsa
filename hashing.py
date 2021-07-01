@@ -1,3 +1,6 @@
+from typing import Counter
+
+
 def maxmFreq(arr):
     freq = {}
     for i in range(len(arr)):
@@ -76,13 +79,67 @@ def longestConsSeq(arr):
             freq[ele] += 1
         else:
             freq[ele] = 1
-    print(freq)
 
+    ans = []
     for key in freq:
         if key+1 in freq:
-            print(key, end=" ")
+            ans.append(key)
         else:
-            print(key)
+            ans.append(key)
+            ans.append(0)
+
+    count = 0
+    countArr = []
+    for i in range(len(ans)-1):
+        if ans[i+1] != 0:
+            count += 1
+        else:
+            countArr.append(count)
+            count = 0
+    
+    maxIndex = 0
+    maxm = -1
+    for i in range(len(countArr)):
+        if countArr[i] > maxm:
+            maxm = countArr[i]
+            maxIndex = i
+    
+    i = 0
+    while(maxIndex != 0):
+        if ans[i] == 0:
+            maxIndex -= 1
+        i += 1
+
+    print(ans[i], end=" ")
+    print(ans[i+maxm-1])
+    
+def longestConsSeqOpti(arr):
+    traversed = {}
+    maxLength, start = -1 , 0
+    for ele in arr:
+        traversed[ele] = False
+    
+    for ele in arr:
+        count = 0
+        temp = ele
+        if traversed[temp] == False:
+            traversed[temp] = True
+            count += 1
+            while temp+1 in traversed:
+                traversed[temp+1] = True
+                count += 1
+                temp += 1
+            temp = ele
+            while temp-1 in traversed:
+                traversed[temp-1] = True
+                count += 1
+                temp -= 1
+            if count > maxLength:
+                start = temp
+                maxLength = count
+
+    for i in range(maxLength):
+        print(start+i, end=" ")
     
         
 
@@ -94,4 +151,5 @@ arr = [int(x) for x in input().split()]
 # pairSumTo0Optimized(arr)
 # s = input()
 # extractUniqueChar(s)
-longestConsSeq(arr)
+# longestConsSeq(arr)
+longestConsSeqOpti(arr)
