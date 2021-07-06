@@ -74,16 +74,40 @@ class Graph:
         visited[v1] = True
         for i in range(self.nVertices):
             if self.adjMatrix[v1][i] > 0 and visited[i] is False:
-                if self.__getPathDFSHelper(i, v2, visited) is not None:
-                    ans = self.__getPathDFSHelper(i, v2, visited)
+                ans = self.__getPathDFSHelper(i, v2, visited)
+                if ans:
                     ans.append(v1)
                     return ans
-        # return None
-        
+
     def getPathDFS(self, v1, v2):
-        visited = [False] * self.nVertices
+        visited = [False for i in range(self.nVertices)]
         return self.__getPathDFSHelper(v1, v2, visited)
 
+    def getPathBFS(self, v1, v2):
+        visited = [False] * self.nVertices
+        q = queue.Queue()
+        q.put(v1)
+        visited[v1] = True
+        parent = {}
+        while not q.empty():
+            front = q.get()
+            for i in range(self.nVertices):
+                if self.adjMatrix[front][i] > 0 and visited[i] == False:
+                    q.put(i)
+                    visited[i] = True
+                    parent[i] = front
+                    if i == v2:
+                        break
+        path = [v2]
+        i = v2
+        while i != v1:
+            if parent.get(i) is not None:
+                path.append(parent[i])
+                i = parent[i]
+            else:
+                return None
+        return path
+        
     # if we direclty call the class, then this objects gets printed
     def __str__(self):
         return str(self.adjMatrix)
@@ -103,4 +127,5 @@ g.addEdge(3, 6)
 # g.dfs()
 # g.bfs()
 # print(g.hasPath(5, 0))
-print(g.getPathDFS(0, 6))
+print(g.getPathDFS(1, 6))
+print(g.getPathBFS(1, 6))
