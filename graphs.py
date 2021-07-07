@@ -108,6 +108,37 @@ class Graph:
                 return None
         return path
         
+    def __isConnectedHelper(self, sv, visited):
+        visited[sv] = True
+        for i in range(self.nVertices):
+            if self.adjMatrix[sv][i] > 0 and visited[i] is False:
+                self.__isConnectedHelper(i, visited)
+
+    def isConnected(self):
+        visited = [False] * self.nVertices
+        self.__isConnectedHelper(0, visited)
+        for ele in visited:
+            if ele == False:
+                return False
+        return True
+
+    def __connectedComponentsHelper(self, sv, visited, list):
+        visited[sv] = True
+        list.append(sv)
+        for i in range(self.nVertices):
+            if self.adjMatrix[sv][i] > 0 and visited[i] is False:
+                self.__connectedComponentsHelper(i, visited, list)
+        return list
+
+    def connectedComponents(self):
+        visited = [False for i in range(self.nVertices)]
+        output = []
+        for i in range(self.nVertices):
+            if visited[i] is False:
+                comp = self.__connectedComponentsHelper(i, visited, [])
+                output.append(comp)
+        return output
+
     # if we direclty call the class, then this objects gets printed
     def __str__(self):
         return str(self.adjMatrix)
@@ -115,17 +146,16 @@ class Graph:
 
 
 
-g = Graph(7)
-g.addEdge(0, 1)
-g.addEdge(0, 2)
-g.addEdge(0, 3)
-g.addEdge(1, 5)
-g.addEdge(2, 4)
-g.addEdge(4, 6)
+g = Graph(8)
+g.addEdge(0, 7)
+g.addEdge(3, 5)
 g.addEdge(3, 6)
+g.addEdge(1, 2)
+g.addEdge(1, 4)
 # print(g)
 # g.dfs()
 # g.bfs()
 # print(g.hasPath(5, 0))
-print(g.getPathDFS(1, 6))
-print(g.getPathBFS(1, 6))
+# print(g.getPathDFS(5, 6))
+# print(g.isConnected())
+print(g.connectedComponents())
