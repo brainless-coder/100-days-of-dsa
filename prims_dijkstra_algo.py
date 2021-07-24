@@ -85,6 +85,35 @@ class Graph:
                 print(f"{i} {parent[i]} {weight[i]}")
             else:
                 print(f"{parent[i]} {i} {weight[i]}")
+    
+
+    def __getMinDistVertex(self, visited, dist):
+        minVertex = -1
+        for i in range(self.nVertices):
+            if (not visited[i] and (minVertex == -1 or dist[i] < dist[minVertex])):
+                minVertex = i
+        return minVertex 
+
+    # print the shortest distance from the source vertex (i.e. Vertex 0)
+    #  to all other vertices (including source vertex also)
+    def dijkstra(self):
+        visited = [None] * self.nVertices
+        dist = [sys.maxsize for i in range(self.nVertices)]
+        dist[0] = 0
+
+        for i in range(self.nVertices - 1):
+            u = self.__getMinDistVertex(visited, dist)
+            visited[u] = True
+
+            # exploring all unvisited neighours of u
+            # and updating their dist if required
+            for j in range(self.nVertices):
+                if self.adjMatrix[u][j] > 0 and not visited[j]:
+                    if dist[j] > dist[u] + self.adjMatrix[u][j]:
+                        dist[j] = dist[u] + self.adjMatrix[u][j]
+        
+        for i in range(self.nVertices):
+            print(i, dist[i])
 
 
 li = [int(ele) for ele in input().split()]
@@ -94,4 +123,6 @@ for i in range(E):
     currInput = [int(ele) for ele in input().split()]
     g.addEdge(currInput[0], currInput[1], currInput[2])
     
-g.prims()
+
+# g.prims()
+g.dijkstra()
