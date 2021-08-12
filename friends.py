@@ -8,3 +8,4 @@ def main():
         ans[i] = stock[i] // req[i]
 
     print(min(ans))
+
