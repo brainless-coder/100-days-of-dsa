@@ -34,12 +34,15 @@ s1 = Student("Ahbishek", 18, 7)
 s1._Student__name = "Rohan"     # Name mangling, a way to access private attributes
 # obj._classname__varibale
 print(s1.__dict__)
-print(s1.__passingPercentage)
+# s1.__name = "Prime"
+# print(s1.__dict__)
+# print(s1.__passingPercentage)
 # s1.studentDetails()
 # Student.studentDetails(s1)
 #class_name.function(obj_name)
 # s1.isPassed()
-# s1.welcomeToSchool()
+Student.welcomeToSchool()
+s1.welcomeToSchool()
 # s2 = Student("Rohan", 35)
 # print(s2.__dict__)
 # s2.isPassed()
