@@ -30,7 +30,6 @@ int maxSubArraySumSlidingWindow2(int arr[], int n, int k) {
     int currSum {}, maxSum = -99999;
     for(int i = 0, j = 0; j < n; ++j) {
         currSum += arr[j];
-        if (j-i+1 < k)  continue;
         if (j-i+1 == k) {
             maxSum = max(currSum, maxSum);
             currSum -= arr[i];
@@ -55,17 +54,44 @@ void firstNegInEveryWindowNaive(int *arr, int n, int k) {
     cout << endl;
 }
 
+void firstNegInEveryWindowSlidingWindow(vector<int> vec, int n, int k) {
+    vector<int> li;
+    int i = 0, j = 0;
+
+    while (j < n) {
+        if (vec[j] < 0) li.push_back(vec[j]);
+        if (j-i+1 == k) {
+            cout << (li.size() ? li.front() : 0) << " ";
+            if (li.size() && vec[i] == li.front()) {
+                li.erase(li.begin());
+            }
+            i++;
+        }
+        j++;
+    }
+    cout << endl;
+}
+
 int main() {
 
     int n, k;
     cin >> n >> k;
-    int arr[n];
-    for(int i = 0; i < n; ++i)  cin >> arr[i];
+    // int arr[n];
+    // for(int i = 0; i < n; ++i)  cin >> arr[i];
+
+    vector<int> vec;
+    int ele;
+    for(int i = 0; i < n; ++i) {
+        cin >> ele;
+        vec.push_back(ele);
+    }
+
 
     // cout << maxSubArraySumNaive(arr, n, k) << endl;
     // cout << maxSubArraySumSlidingWindow1(arr, n, k) << endl;
     // cout << maxSubArraySumSlidingWindow2(arr, n, k) << endl;
-    firstNegInEveryWindowNaive(arr, n, k);
+    // firstNegInEveryWindowNaive(arr, n, k);
+    firstNegInEveryWindowSlidingWindow(vec, n, k);
 
     return 0;
 }
