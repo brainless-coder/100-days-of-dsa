@@ -1,5 +1,3 @@
-from typing import Counter
-
 
 def maxmFreq(arr):
     freq = {}

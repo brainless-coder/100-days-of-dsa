@@ -1,4 +1,6 @@
-#include<bits/stdc++.h>
+#include<iostream>
+#include<vector>
+#include<unordered_map>
 using namespace std;
 
 int maxSubArraySumNaive(int *arr, int n, int k) {
@@ -71,6 +73,20 @@ void firstNegInEveryWindowSlidingWindow(vector<int> vec, int n, int k) {
     }
     cout << endl;
 }
+
+int occOfAnagram(string s, string ptr) {
+    unordered_map<string,int> map;
+    int k = ptr.size();
+    int n = s.length();
+    int i {}, j {};
+    for (int i = 0; i < k; ++i) {
+        // make the map with the pattern
+    }
+    while(j < n) {
+
+    }
+}
+
 
 int main() {
 
