@@ -179,21 +179,43 @@ int largestSubarryofSumK(vector<int> arr, int k) {
     return maxm;
 }
 
+int longestSubstringWithKUniqChar(string s, int k) {
+    int n = s.length();
+    unordered_map<char, int> freq;
+    int i {}, j {}, ans {};
+
+    while (j < n) {
+        freq[s[j]]++;
+        if (freq.size() == k) {
+            ans = max(ans, j-i+1);
+        }
+
+        while (freq.size() > k) {
+            freq[s[i]]--;
+            if(freq[s[i]] == 0) {
+                freq.erase(s[i]);
+            }
+            i++;
+        }
+        j++;
+    }
+
+    return ans;
+}
+
 
 int main() {
 
-    int n, k;
-    cin >> n >> k;
+    // int n, k;
+    // cin >> n >> k;
     // int arr[n];
     // for(int i = 0; i < n; ++i)  cin >> arr[i];
-
-    vector<int> vec;
-    int x;
-    for(int i = 0; i < n; ++i) {
-        cin >> x;
-        vec.push_back(x);
-    }
-
+    // vector<int> vec;
+    // int x;
+    // for(int i = 0; i < n; ++i) {
+    //     cin >> x;
+    //     vec.push_back(x);
+    // }
 
     // cout << maxSubArraySumNaive(arr, n, k) << endl;
     // cout << maxSubArraySumSlidingWindow1(arr, n, k) << endl;
@@ -201,19 +223,19 @@ int main() {
     // firstNegInEveryWindowNaive(arr, n, k);
     // firstNegInEveryWindowSlidingWindow(vec, n, k);
     
-    // string s, pattern;
-    // int k;
-    // getline(cin, s);
+    string s, pattern;
+    int k;
+    getline(cin, s);
     // getline(cin, pattern);
-    // cin >> k;
+    cin >> k;
     // cout << occOfAnagram(s, pattern, k);
 
     // maxmOfAllSubarrayOfSizeK(n, vec, k);
 
-
-    // Fixed sized window
+    // Variable sized window
     // cout << largestSubarryofSumKNaive(vec, k) << endl;
-    cout << largestSubarryofSumK(vec, k);
+    // cout << largestSubarryofSumK(vec, k);
+    cout << longestSubstringWithKUniqChar(s, k);
 
 
     return 0;
