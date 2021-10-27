@@ -203,6 +203,31 @@ int longestSubstringWithKUniqChar(string s, int k) {
     return ans;
 }
 
+// Longest substring without repeating char or with all unique cahracters
+int longestSubstringWithoutRepeatingChar(string s) {
+        unordered_map<char, int> freq;
+        int n = s.length();
+        int i = 0, j = 0, ans = 0;
+        
+        while (j < n) {
+            freq[s[j]]++;
+            
+            if (freq.size() == j-i+1) {
+                ans = max(ans, j-i+1);
+            }
+            
+            while (freq.size() < j-i+1) {
+                freq[s[i]]--;
+                if(freq[s[i]] == 0)
+                    freq.erase(s[i]);
+                i++;
+            }
+            j++;
+        }
+        
+        return ans;
+    }
+
 
 int main() {
 
@@ -236,6 +261,8 @@ int main() {
     // cout << largestSubarryofSumKNaive(vec, k) << endl;
     // cout << largestSubarryofSumK(vec, k);
     cout << longestSubstringWithKUniqChar(s, k);
+    cout << longestSubstringWithoutRepeatingChar(s);
+
 
 
     return 0;
