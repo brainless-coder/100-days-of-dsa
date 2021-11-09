@@ -1,6 +1,8 @@
 #include<iostream>
 #include<vector>
 #include<algorithm>
+#include<math.h>
+#include<stdio.h>
 using namespace std;
 
 struct Activity {
@@ -38,9 +40,73 @@ void activitySelection() {
 
 }
 
+bool descComp(int a, int b) {
+	return a > b;
+}
+
+int nikunjAndDonuts(vector<int> arr, int n) {
+	int j {}, ans {};
+	sort(arr.begin(), arr.end(), descComp);
+
+	for(int i = 0; i < n; ++i) {
+		ans += pow(2, j++)*arr[i];
+	}
+
+	return ans;
+}
+
+struct knapObject {
+	int profit, weight;
+};
+
+bool knapsackComp(knapObject o1, knapObject o2) {
+	double pw1 = double(o1.profit)/o1.weight;
+	double pw2 = double(o2.profit)/o2.weight;
+	return pw1 > pw2;
+} 
+
+void fractionalKnapsack() {
+	int n, m, p, w;
+	double finalProfit = 0;
+	vector<knapObject> KnapsackObjects;
+	cin >> n >> m;
+	for(int i = 0; i < n; ++i) {
+		cin >> p >> w;
+		knapObject ob {p, w};
+		KnapsackObjects.push_back(ob);
+	}
+	sort(KnapsackObjects.begin(), KnapsackObjects.end(), knapsackComp);
+
+	int i = 0;
+	while(m > 0 and i < n) {
+		if (KnapsackObjects[i].weight <= m) {
+			m -= KnapsackObjects[i].weight;
+			finalProfit += KnapsackObjects[i].profit;
+		} else {
+			double pw = double(KnapsackObjects[i].profit)/KnapsackObjects[i].weight;
+			finalProfit += (pw*m);
+			m = 0;
+		}
+		i++;
+	}
+
+	cout << finalProfit << endl;
+}
+
 int main()
 {
-	activitySelection();
-	
+	// activitySelection();
+	fractionalKnapsack();
+
+
+	// int n, x;
+	// cin >> n;
+	// vector<int> arr {};
+	// for(int i = 0; i < n; ++i) {
+	// 	cin >> x;
+	// 	arr.push_back(x);
+	// }
+	// cout << nikunjAndDonuts(arr, n) << endl;
+
 	return 0;
 }
