@@ -1,3 +1,4 @@
+import random
 
 # O(n^2)
 def bubbleSort(arr):
@@ -82,7 +83,8 @@ def quickSort(arr, start, end):
     quickSort(arr, pivot+1, end)
 
 def partition(arr, start, end):
-    pivot = start
+    # pivot = start
+    pivot = random.randint(start, end)
     i = start
     count = 0
     while i <= end:
@@ -128,4 +130,36 @@ def binarySearch(arr, x):
 
 # print(binarySearch([1, 2, 5, 8, 12, 15, 18], 1))
 
+
+
+
+# Push zeroes to end
+# 2 0 0 1 3 0 0  --> 2 1 3 0 0 0 0
+
+# arr = [int(x) for x in input().split()]
+# nonZero = 0
+# for i in range(len(arr)):
+#     if arr[i] != 0:
+#         arr[nonZero], arr[i] = arr[i], arr[nonZero]
+#         nonZero += 1
+# print(arr)
+
+
+# Rotate Array
+# arr = [int(x) for x in input().split()]
+# d = int(input())
+# arr = arr[d-1::-1] + arr[:d-1:-1]
+# arr = arr[::-1]
+# print(arr)
+
+
+# Check Array Rotation
+
+# arr = [int(x) for x in input().split()]
+# ans = 0
+# for i in range(len(arr)-1):
+#     if arr[i] > arr[i+1]:
+#         ans = i+1
+#         break
+# print(ans)
 
