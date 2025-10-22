@@ -342,6 +342,7 @@ def delNnodeafterMnode(head, m, n):
             curr = curr.next
     return head
 
+# swaps two nodes at positions i and j, without swapping the values
 def swapTwoNodes(head, i , j):
     n = lengthLL(head)
     if i == j:
@@ -386,6 +387,7 @@ def swapTwoNodes(head, i , j):
             c2.next = p2
     return head
 
+# This reverses a linked list in groups of k nodes.
 def kReverse(head, k):
     if head is None:
         return

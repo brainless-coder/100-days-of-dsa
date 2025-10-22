@@ -1,3 +1,4 @@
+import random
 
 def isListSortedUsingRecursion(li, si=0):
 	n = len(li)
@@ -81,8 +82,8 @@ def mergeSort(li):
 
 def partition(arr, si, ei):
 	# pick a element as pivot
-	# pivot = random.choice(arr[si:ei+1])
-	pivot = arr[si]
+	pivot = random.choice(arr[si:ei+1])
+	# pivot = arr[si]
 	count = 0
 	for i in range(si, ei+1):
 		if arr[i] < pivot:
@@ -101,7 +102,6 @@ def partition(arr, si, ei):
 			arr[i], arr[j] = arr[j], arr[i]
 			i += 1
 			j -= 1
-	# return pivot index
 	return pivot_index
 
 def quickSort(arr, si, ei):

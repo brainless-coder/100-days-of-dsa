@@ -1,5 +1,3 @@
-
-
 def selectionSort(arr):
   n = len(arr)
 

@@ -1,17 +1,17 @@
 # Check if fibonacci or not
-# def fibonacci(n):
-#     prev , curr = 0, 1
-#     while curr < n:
-#         temp = prev + curr
-#         prev = curr
-#         curr = temp
-#     if (curr == n):
-#         return True
-#     else:
-#         return False
+def fibonacci(n):
+    prev , curr = 0, 1
+    while curr < n:
+        temp = prev + curr
+        prev = curr
+        curr = temp
+    if (curr == n):
+        return True
+    else:
+        return False
 
-# n = int(input())
-# print(fibonacci(n))
+n = int(input())
+print(fibonacci(n))
 
 
 # Check Armstrong

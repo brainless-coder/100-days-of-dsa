@@ -10,8 +10,8 @@ def fibonacci(n):
     fib2 = fibonacci(n-2)
     return fib1 + fib2
 
-n = int(input())
-print(fibonacci(n))
+# n = int(input())
+# print(fibonacci(n))
 
 
 # Check if List is sorted or not
@@ -471,10 +471,57 @@ def rotateLeft(arr, d):
 # print(arr)
 
 
-# Triplet Sum
-def tripletSum(arr, num):
-    pass
+def printAllSubsequence(arr, ans, idx, n):
+    if idx == n:
+        print(ans)
+        return
+    # pick the element at idx
+    ans.append(arr[idx])
+    printAllSubsequence(arr, ans, idx+1, n)
+    # not pick the element at idx
+    ans.pop()
+    printAllSubsequence(arr, ans, idx+1, n)
 
-# li = [int(x) for x in input().split()]
-# num = int(input())
-# print(tripletSum(li, num))
+
+# This is to print only one subsequence with sum K, that's why we are returning True after printing ans, if we needed to print all subsequence with sum K, then we would have not returned True
+def printSubsequenceWithSumK(arr, ans, idx, n, currSum, sm):
+    if idx == n:
+        if currSum == sm:
+            print(ans)
+            return True
+        return False
+    
+    # pick the ele at curr idx
+    ans.append(arr[idx])
+    currSum += arr[idx]
+    flag = printSubsequenceWithSumK(arr, ans, idx+1, n, currSum, sm)
+    if flag: return True
+    # not pick the ele at curr idx
+    ans.pop()
+    currSum -= arr[idx]
+    flag = printSubsequenceWithSumK(arr, ans, idx+1, n, currSum, sm)
+    if flag: return True
+    return False
+
+
+def countSubsequenceWithSumK(arr, currSum, sm, idx, n):
+    if idx == n:
+        if currSum == sm:
+            return 1
+        return 0
+    
+    # pick the ele at curr idx
+    currSum += arr[idx]
+    leftCount = countSubsequenceWithSumK(arr, currSum, sm, idx+1, n)
+    # not pick the ele at curr idx
+    currSum -= arr[idx]
+    rightCount = countSubsequenceWithSumK(arr, currSum, sm, idx+1, n)
+    return leftCount + rightCount
+
+arr = [int(x) for x in input().split()]
+n = len(arr)
+# printAllSubsequence(arr, [], 0, n)
+# printSubsequenceWithSumK(arr, [], 0, n, 0, 2)
+print(countSubsequenceWithSumK(arr, 0, 2, 0, n))
+
+
